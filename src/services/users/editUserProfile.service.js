@@ -1,16 +1,14 @@
 import users from "../../database";
 
-const editUserProfileService = (uuid, name, email) => {
-  const userUpdates = { uuid, name, email };
+const editUserProfileService = (id, userUpdates) => {
+  const index = users.findIndex((user) => user.uuid === id);
 
-  const userIndex = users.findIndex((user) => user.id === id);
+  users[index] = { ...users[index], ...userUpdates };
+  users[index].updatedOn = new Date();
 
-  if (userIndex === -1) {
-    return "User not found!";
-  }
-  users[userIndex] = { ...users[userIndex], ...userUpdates };
+  const { name, email, isAdm, uuid, createdOn, updatedOn } = users[index];
 
-  return users[userIndex];
+  return { name, email, isAdm, uuid, createdOn, updatedOn };
 };
 
 export default editUserProfileService;

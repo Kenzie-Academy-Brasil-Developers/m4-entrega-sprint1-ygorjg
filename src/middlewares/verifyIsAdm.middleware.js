@@ -1,9 +1,9 @@
 import users from "../database";
 
 const verifyIsAdmMiddleware = (request, response, next) => {
-  const notAdm = users.find((user) => user.isAdm === false);
+  const user = users.find((user) => user.uuid == request.userId);
 
-  if (notAdm) {
+  if (!user.isAdm) {
     return response.status(401).json({
       message: "Unauthorized",
     });

@@ -1,14 +1,15 @@
 import users from "../../database";
 
-const getUserService = (uuid) => {
-  const user = users.find((user) => user.uuid === uuid);
-  
+const getUserService = (userId) => {
+  const user = users.find((user) => user.uuid === userId);
+
   if (!user) {
-    console.log(users)
     return { message: "User not found" };
   }
 
-  return user;
+  const { password, ...data } = user;
+
+  return data;
 };
 
 export default getUserService;
